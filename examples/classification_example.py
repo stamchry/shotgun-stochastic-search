@@ -1,5 +1,5 @@
-from main.generate_test_df import generate_test_df_binary_regression
-from main.sss import SSS
+from tests.generate_test_df import generate_test_df_binary_regression
+from shotgun_stochastic_search import ShotgunStochasticSearch
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -10,9 +10,9 @@ df = generate_test_df_binary_regression(50, 20, 2, 1)
 X = df.iloc[:, :-1].to_numpy()
 y = df.iloc[:, -1].to_numpy()
 
-# Initialize and fit the SSS model
-sss_instance = SSS(iterations=1000, hyperparameter=2/20, tau=1, regression_type='binary')
-result = sss_instance.fit(X, y, df, num_of_best_scores=1000)
+# Initialize and fit the ShotgunStochasticSearch model
+search_instance = ShotgunStochasticSearch(iterations=1000, hyperparameter=2/20, tau=1, regression_type='binary')
+result = search_instance.fit(X, y, df, num_of_best_scores=1000)
 
 # Drop variables that did not appear in the search
 result = result[result != 0].dropna(axis=1, how='all').fillna(0)
@@ -22,6 +22,6 @@ for i in result.columns[:-2]:
     relative_importance = result[result[i] == 1]['Relative Importance'].sum()
     print(f'Relative importance of variable {i}: {relative_importance}')
 
-# Plot pairplot for variables discovered by SSS
+# Plot pairplot for variables discovered by ShotgunStochasticSearch
 sns.pairplot(df[result.columns.tolist()[:-2] + ['target']], hue='target')
 plt.show()

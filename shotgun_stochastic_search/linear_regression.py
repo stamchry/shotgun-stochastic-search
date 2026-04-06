@@ -1,7 +1,11 @@
-#main/linear_regression.py
+"""
+Linear Regression module for Shotgun Stochastic Search.
+
+Calculates the marginal likelihoods of linear regression models within the SS Search as described in Hans et al.
+"""
 
 import numpy as np
-from .helpers import model_selection_prior, gamma_func
+from scipy.special import gamma as gamma_func
 
 def m_gamma(X: np.ndarray, t: int, k: int):
     return t * np.identity(k) + np.matmul(X.T, X)
