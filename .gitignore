@@ -1,0 +1,14 @@
+.venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest / CI
+.pytest_cache/
+
+# Package builds
+build/
+dist/
+*.egg-info/

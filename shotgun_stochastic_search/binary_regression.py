@@ -1,3 +1,10 @@
+"""
+Binary (Logistic) Regression module for Shotgun Stochastic Search.
+
+Calculates the posterior of binary regression configurations using Laplace approximation, 
+utilized to traverse the ShotgunStochasticSearch model space.
+"""
+
 import numpy as np
 from scipy.optimize import minimize
 
@@ -33,4 +40,4 @@ def binary_regression(X,y,tau=1):
         laplace_approximation = ((2 * np.pi) ** (X.shape[1] / 2)) * np.sqrt(np.linalg.det(hess)) * np.exp(-result.fun)
         return laplace_approximation
     else:
-        raise ValueError("Optimization failed.")
+        return 0.0

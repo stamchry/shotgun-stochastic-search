@@ -2,8 +2,6 @@
 from sklearn.datasets import make_classification,make_regression
 import numpy as np
 import pandas as pd
-import random
-
 
 
 def generate_test_df_linear_regression(num_of_samples, num_of_features, num_of_informative):

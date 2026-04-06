@@ -1,10 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from main.sss import SSS  # Import your SSS class from main.sss
+from shotgun_stochastic_search import ShotgunStochasticSearch
 
 # Import Data
-df = pd.read_csv('tecator_data.csv')
+df = pd.read_csv('data/tecator_data.csv')
 
 # Center and Normalize the data
 df_centered = df - df.mean()
@@ -22,11 +22,11 @@ fig, axs = plt.subplots(2, 2, figsize=(15, 10))
 # Iterate over the different values of the hyperparameter
 for idx, hyperparameter in enumerate(hyperparameter_values):
 
-    # Create an instance of the SSS class
-    sss_instance = SSS(iterations=10, hyperparameter=hyperparameter, tau=1, delta=3, regression_type='linear')
+    # Create an instance of the ShotgunStochasticSearch class
+    search_instance = ShotgunStochasticSearch(iterations=10, hyperparameter=hyperparameter, tau=1, delta=3, regression_type='linear')
 
     # Fit the data
-    result = sss_instance.fit(X, y, df_normalized, num_of_best_scores=1000)
+    result = search_instance.fit(X, y, df_normalized, num_of_best_scores=1000)
 
     # Summarize the output for the subplots
     rel_imp_df = pd.DataFrame(index=result.columns[:-2], columns=['Relative Importance', 'Index of Covariate'])
